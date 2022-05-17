@@ -1,4 +1,4 @@
-
+import string
 
 # S > NP VP
 # VP > V NP PP , VP PP
@@ -14,7 +14,7 @@ def make_dictionary(filename):
     mini_dict = {}
     word_dict = {}
     data_dict = {}
-
+    punctuation = '!"#$%&()*+,-./:;<=>?@[\]^_`{|}~”“'
     with open(filename) as file:
         for row in file:
             word_list = []
@@ -27,6 +27,7 @@ def make_dictionary(filename):
                 if x > 2:
                     if word[0] == '"':
                         # print(word)
+                        word = word.translate(str.maketrans("", "", punctuation))
                         word_list.append(word)
                     elif word != '|':
                         data_list.append(word)
@@ -36,7 +37,7 @@ def make_dictionary(filename):
 
     main_dict['WORDS'] = word_dict
     main_dict['DATA'] = data_dict
-    print(main_dict)
+    return(main_dict)
 
 def parse_sentence(sentence, main_dict):
     sentence = sentence.split()
@@ -66,9 +67,10 @@ def parse_sentence(sentence, main_dict):
 
 
 def main(filename, sentence):
-    main_dict = {'WORDS':{"P": ['in', 'on', 'by', 'with'], 'N': ['man', 'dog', 'cat', 'telescope', 'park'], 'Det': ['a', 'an', 'the', 'my'], "NP": ['John', 'Mary', 'Bob'], 'V': ['saw', 'ate', 'walked']}, 'DATA':{'NP': [['Det', 'N', 'PP'], ['Det', 'N']], 'PP': ['P', 'NP'], 'VP': [['V', 'NP', 'PP'], ['VP', 'PP']], 'S': ['NP', 'VP']}}
-    # print(main_dict)
+    # main_dict = {'WORDS':{"P": ['in', 'on', 'by', 'with'], 'N': ['man', 'dog', 'cat', 'telescope', 'park'], 'Det': ['a', 'an', 'the', 'my'], "NP": ['John', 'Mary', 'Bob'], 'V': ['saw', 'ate', 'walked']}, 'DATA':{'NP': [['Det', 'N', 'PP'], ['Det', 'N']], 'PP': ['P', 'NP'], 'VP': [['V', 'NP', 'PP'], ['VP', 'PP']], 'S': ['NP', 'VP']}}
+
     main_dict = make_dictionary(filename)
-    # parse_sentence(sentence, main_dict)
+    print(main_dict)
+    parse_sentence(sentence, main_dict)
 
 main('grammer.txt', 'The telescope saw a dog in the park with a cat')
