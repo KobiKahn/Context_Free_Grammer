@@ -9,6 +9,35 @@
 # N > "man" , "dog" , "cat" , "telescope" , "park"
 # P > "in" , "on" , "by" , "with"
 
+def make_dictionary(filename):
+    main_dict = {'WORDS': {}, 'DATA': {}}
+    mini_dict = {}
+    word_dict = {}
+    data_dict = {}
+
+    with open(filename) as file:
+        for row in file:
+            word_list = []
+            data_list = []
+            x = 0
+            row = row.split()
+            row_len = len(row)
+            for word in row:
+                x += 1
+                if x > 2:
+                    if word[0] == '"':
+                        # print(word)
+                        word_list.append(word)
+                    elif word != '|':
+                        data_list.append(word)
+
+            word_dict[row[0]] = word_list
+            data_dict[row[0]] = data_list
+
+    main_dict['WORDS'] = word_dict
+    main_dict['DATA'] = data_dict
+    print(main_dict)
+
 def parse_sentence(sentence, main_dict):
     sentence = sentence.split()
     word_tuple_list = []
@@ -38,7 +67,8 @@ def parse_sentence(sentence, main_dict):
 
 def main(filename, sentence):
     main_dict = {'WORDS':{"P": ['in', 'on', 'by', 'with'], 'N': ['man', 'dog', 'cat', 'telescope', 'park'], 'Det': ['a', 'an', 'the', 'my'], "NP": ['John', 'Mary', 'Bob'], 'V': ['saw', 'ate', 'walked']}, 'DATA':{'NP': [['Det', 'N', 'PP'], ['Det', 'N']], 'PP': ['P', 'NP'], 'VP': [['V', 'NP', 'PP'], ['VP', 'PP']], 'S': ['NP', 'VP']}}
-
-    parse_sentence(sentence, main_dict)
+    # print(main_dict)
+    main_dict = make_dictionary(filename)
+    # parse_sentence(sentence, main_dict)
 
 main('grammer.txt', 'The telescope saw a dog in the park with a cat')
