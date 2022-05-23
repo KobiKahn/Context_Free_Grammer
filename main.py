@@ -82,19 +82,33 @@ def get_order(main_dict):
     for val in main_dict['DATA']:
         if main_dict['DATA'][val]:
             new_list.insert(0, val)
-
     return new_list
 
 
 def check_sentence(tuple_list, m_dict, order_list):
+    new_tuple_list = []
     order_list_counter = 0
     requirements = m_dict['DATA'][order_list[order_list_counter]]
     for req in requirements:
         req_list = [val for val in req.split() if val != '']
-        counter = 0
-        for val in tuple_list:
-            print(val[-1])
-
+        counter_tuple = -1
+        counter_req = 0
+        for num in range(len(tuple_list)):
+            counter_tuple += 1
+            if counter_tuple >= len(tuple_list):
+                counter_tuple = 0
+            if req_list[counter_req] == tuple_list[counter_tuple][-1]:
+                if req_list[counter_req + 1] == tuple_list[counter_tuple + 1][-1]:
+                    # print(tuple_list[counter_tuple], tuple_list[counter_tuple + 1])
+                    new_tuple_list.append((tuple_list[counter_tuple][0] + ' ' + tuple_list[counter_tuple + 1][0], req))
+                    counter_tuple += 1
+            else:
+                new_tuple_list.append(tuple_list[counter_tuple])
+        tuple_list = new_tuple_list
+        new_tuple_list = []
+        print(tuple_list)
+        print(new_tuple_list)
+    print(tuple_list)
 
 
 def main(filename, sentence):
