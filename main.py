@@ -96,8 +96,10 @@ def check_sentence(tuple_list, m_dict, order_list):
         for req in requirements:  # loops through the different order combos
             req_list = [val for val in req.split() if val != '']  # makes the req list only the needed combos
             counter_tuple = -1
+            print(req_list)
             if counter_req >= len(req_list) - 1:
-                pass
+                counter_req = 0
+                print(req_list)
             else:
                 for num in range(len(tuple_list)):
                     counter_tuple += 1
@@ -107,7 +109,6 @@ def check_sentence(tuple_list, m_dict, order_list):
                         if req_list[counter_req + 1] == tuple_list[counter_tuple + 1][-1]:
                             # print(tuple_list[counter_tuple], tuple_list[counter_tuple + 1])
                             if len(req_list) > 2:
-                                # print(req_list, 3)
                                 if req_list[counter_req + 2] == tuple_list[counter_tuple + 2][-1]:
                                     new_tuple_list.append((
                                         tuple_list[counter_tuple][0] + ' ' + tuple_list[counter_tuple + 1][0]
@@ -122,10 +123,9 @@ def check_sentence(tuple_list, m_dict, order_list):
                                 counter_tuple += 1
                     else:
                         new_tuple_list.append(tuple_list[counter_tuple])
-                counter_req += 1
-                # print(tuple_list)
                 tuple_list = new_tuple_list
                 new_tuple_list = []
+        counter_req += 1
     print(tuple_list)
 
 
