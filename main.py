@@ -96,19 +96,19 @@ def check_sentence(tuple_list, m_dict, order_list):
         for req in requirements:  # loops through the different order combos
             req_list = [val for val in req.split() if val != '']  # makes the req list only the needed combos
             counter_tuple = -1
+            print(tuple_list)
             print(req_list)
             if counter_req >= len(req_list) - 1:
                 counter_req = 0
-                print(req_list)
             else:
                 for num in range(len(tuple_list)):
                     counter_tuple += 1
                     if counter_tuple >= len(tuple_list):
                         pass
-                    elif req_list[counter_req] == tuple_list[counter_tuple][-1]:
+                    elif req_list[counter_req] == tuple_list[counter_tuple][-1] and counter_tuple+1 < len(tuple_list) and counter_req+1 < len(req_list):
                         if req_list[counter_req + 1] == tuple_list[counter_tuple + 1][-1]:
                             # print(tuple_list[counter_tuple], tuple_list[counter_tuple + 1])
-                            if len(req_list) > 2:
+                            if len(req_list) > 2 and counter_tuple+2 < len(tuple_list) and counter_req+2 < len(req_list):
                                 if req_list[counter_req + 2] == tuple_list[counter_tuple + 2][-1]:
                                     new_tuple_list.append((
                                         tuple_list[counter_tuple][0] + ' ' + tuple_list[counter_tuple + 1][0]
@@ -124,6 +124,7 @@ def check_sentence(tuple_list, m_dict, order_list):
                     else:
                         new_tuple_list.append(tuple_list[counter_tuple])
                 tuple_list = new_tuple_list
+                # print(tuple_list)
                 new_tuple_list = []
         counter_req += 1
     print(tuple_list)
@@ -144,4 +145,10 @@ def main(filename, sentence):
 
 
 # Bob saw a dog in the park
+# The telescope saw a dog in the park with a cat
+# the telescope ate the cat
+# john saw mary in the park
+# bob walked a dog in the park
+# the dog saw a cat
+# a cat with a dog saw john
 main('grammer.txt', 'The telescope saw a dog in the park with a cat')
