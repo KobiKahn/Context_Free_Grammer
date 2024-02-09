@@ -1,6 +1,6 @@
 # S > NP VP
 import string
-
+import pyaudio
 
 # VP > V NP PP , VP PP
 # PP > P NP
@@ -9,7 +9,7 @@ import string
 # Det > "a" , "an" , "the" , "my"
 # N > "man" , "dog" , "cat" , "telescope" , "park"
 # P > "in" , "on" , "by" , "with"
-
+#CHANGE
 def make_dictionary(filename):
     main_dict = {'WORDS': {}, 'DATA': {}}
     mini_dict = {}
